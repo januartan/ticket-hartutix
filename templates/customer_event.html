@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+
+{% block title %}Daftar Event | Ticket Hartutix{% endblock %}
+
+{% block isi3 %}
+
+<div class="event-page">
+
+    <div class="event-heading">
+        <div>
+            <h1>Daftar Event Konser</h1>
+            <p>Temukan dan lihat informasi konser favoritmu di Ticket Hartutix.</p>
+        </div>
+    </div>
+
+    <div class="event-card">
+
+        <div class="event-card-heading">
+            <h2>Event Tersedia</h2>
+            <p>Pilih konser favoritmu dan lihat informasi acaranya.</p>
+        </div>
+
+        <div class="customer-event-grid">
+
+            {% for event in daftar_event %}
+
+            <div class="customer-event-item">
+
+                <div class="customer-event-poster">
+                    {% if event.foto_event017 %}
+                    <img
+                        src="{{ url_for('static', filename='uploads/kelompok3/events/' + event.foto_event017) }}"
+                        alt="Poster {{ event.nama_band017 }}">
+                    {% else %}
+                    <div class="customer-no-poster">
+                        Poster Belum Tersedia
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="customer-event-info">
+
+                    <span class="customer-event-code">
+                        {{ event.kode_event017 }}
+                    </span>
+
+                    <h3>{{ event.nama_band017 }}</h3>
+
+                    <div class="customer-event-detail">
+                        <p>
+                            <span>📅</span>
+                            <strong>Tanggal</strong>
+                            {{ event.tanggal_event017 }}
+                        </p>
+
+                        <p>
+                            <span>🕒</span>
+                            <strong>Jadwal</strong>
+                            {{ event.jadwal_event017 }}
+                        </p>
+
+                        <p>
+                            <span>📍</span>
+                            <strong>Lokasi</strong>
+                            {{ event.alamat_event017 }}
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% else %}
+
+            <div class="customer-event-empty">
+                <h3>Belum Ada Event</h3>
+                <p>Saat ini belum ada konser yang tersedia.</p>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

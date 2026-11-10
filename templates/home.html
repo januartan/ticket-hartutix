@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicketHartutix | Home Vendor Hartutix</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+
+        <a href="/" class="brand">
+            <img
+                src="{{ url_for('static', filename='img/logo.jpeg') }}" 
+                alt="Logo TicketPro"
+                class="brand-logo">
+            <span>Vendor Hartutix</span>
+        </a>
+
+       <div class="nav-menu">
+    <a href="/">Home</a> 
+    <a href="/profile">Profile</a>
+    <a href="/vendor/event">Event</a>
+    <a href="/vendor/detail">Detail Tiket</a>
+    <a href="/about">About</a>
+
+    <a href="{{ url_for('logout') }}" class="btn-logout">
+        Logout
+    </a>
+</div>
+
+    </nav>
+
+    <main class="hero">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <span class="hero-label">VENDOR EVENT MANAGEMENT</span>
+
+            <h1>
+                Kelola Event Mu
+                <span>Hadirkan Konser Terbaik!</span>
+            </h1>
+
+            <p>MANAGE YOUR EVENT, CREATE THE MOMENT</p>
+
+        <a href="{{ url_for('halaman_event017') }}" class="btn-primary">
+    Jelajahi Event
+</a>
+
+        </div>
+
+        <div class="hero-footer">
+            DARI HARTUTIX. UNTUK SEMUA.
+        </div>
+    </main>
+
+</body>
+</html>

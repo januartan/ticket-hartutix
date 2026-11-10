@@ -1,0 +1,62 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Detail Tiket | Ticket Hartutix{% endblock %}
+
+{% block isi3 %}
+
+<div class="event-page">
+
+    <div class="event-heading">
+        <div>
+            <h1>Detail Tiket Konser</h1>
+            <p>Lihat pilihan tiket, harga, dan ketersediaan tiket konser.</p>
+        </div>
+    </div>
+
+    <div class="event-card">
+
+        <div class="event-card-heading">
+            <h2>Pilihan Tiket</h2>
+            <p>Pilih kategori tiket sesuai kebutuhanmu.</p>
+        </div>
+
+        <div class="customer-ticket-grid">
+
+            {% for tiket in daftar_tiket %}
+
+            <div class="customer-ticket-item">
+
+                <span class="customer-event-code">
+                    {{ tiket.kode_event028 }}
+                </span>
+
+                <h3>{{ tiket.nama_band017 }}</h3>
+
+                <h2>{{ tiket.nama_tiket028 }}</h2>
+
+                <div class="customer-ticket-price">
+                    Rp {{ "{:,.0f}".format(tiket.harga_tiket028|float).replace(",", ".") }}
+                </div>
+
+                <p>Stok tersedia: {{ tiket.stok_tiket028 }} tiket</p>
+
+                <span class="customer-ticket-status">
+                    {{ tiket.status_tiket028 }}
+                </span>
+
+            </div>
+
+            {% else %}
+
+            <p>Belum ada tiket yang tersedia.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'layout.html' %} {% block title %}Edit Profil Vendor | Ticket
+Hartutix{% endblock %} {% block isi3 %}
+<div class="profile-page">
+  <div class="profile-card">
+    <div class="profile-card-heading">
+      <h2>Edit Profil Vendor</h2>
+      <p>Perbarui informasi profil vendor.</p>
+    </div>
+
+      <form
+          action="{{ url_for('update_profile030', id_profile030=profil_data.id_profile030) }}"
+          method="POST"
+          enctype="multipart/form-data"
+      >
+      <div class="profile-grid">
+        <div class="profile-field">
+          <label>Nama Vendor</label>
+          <input
+            class="profile-value"
+            name="nama_profile030"
+            value="{{ profil_data.nama_profile030 }}"
+            required
+          />
+        </div>
+
+        <div class="profile-field">
+          <label>Jenis Usaha</label>
+          <input
+            class="profile-value"
+            name="jenis_usaha030"
+            value="{{ profil_data.jenis_usaha030 }}"
+            required
+          />
+        </div>
+
+        <div class="profile-field">
+          <label>Email Vendor</label>
+          <input
+            class="profile-value"
+            type="email"
+            name="email_profile030"
+            value="{{ profil_data.email_profile030 }}"
+            required
+          />
+        </div>
+
+        <div class="profile-field">
+          <label>Nomor Telepon</label>
+          <input
+            class="profile-value"
+            name="telepon_profile030"
+            value="{{ profil_data.telepon_profile030 }}"
+            required
+          />
+        </div>
+
+        <div class="profile-field">
+          <label>Alamat Usaha</label>
+          <input
+            class="profile-value"
+            name="alamat_profile030"
+            value="{{ profil_data.alamat_profile030 }}"
+            required
+          />
+        </div>
+
+        {% if profil_data.foto_profile030 %}
+        <img
+          src="{{ url_for(
+            'static',
+            filename='uploads/kelompok3/profile/' ~ profil_data.foto_profile030
+        ) }}"
+          width="120"
+        />
+        {% endif %}
+
+        <input
+          type="file"
+          name="foto_profile030"
+          accept=".png,.jpg,.jpeg,.webp"
+        />
+
+        <div class="profile-field">
+          <label>Status Akun</label>
+        <select class="profile-value" name="status_profile030" required>
+
+            <option value="Aktif"
+                {% if profil_data.status_profile030 == "Aktif" %}
+                    selected
+                {% endif %}>
+                Aktif
+            </option>
+
+            <option value="Tidak Aktif"
+                {% if profil_data.status_profile030 == "Tidak Aktif" %}
+                    selected
+                {% endif %}>
+                Tidak Aktif
+            </option>
+
+        </select>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px">
+        <button class="event-btn event-btn-add" type="submit">
+          Simpan Perubahan
+        </button>
+
+        <a
+          class="event-btn event-btn-reset"
+          href="{{ url_for('halaman_profile030') }}"
+        >
+          Batal
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

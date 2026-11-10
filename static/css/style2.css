@@ -1,0 +1,1281 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f6fa;
+    color: #202338;
+}
+
+.navbar {
+    height: 76px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #171a2b;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.brand-icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #635bff;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-menu a {
+    color: #d4d6e0;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: white;
+}
+
+.hero {
+    min-height: calc(100vh - 76px);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-image: url("../img/vendor.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(8, 11, 18, 0.78),
+        rgba(8, 11, 18, 0.35),
+        rgba(8, 11, 18, 0.65)
+    );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 40px 24px;
+    text-align: center;
+    color: white;
+}
+
+.hero-label {
+    display: inline-block;
+    margin-bottom: 24px;
+    padding: 9px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+.hero-content h1 {
+    max-width: 1100px;
+    margin: 0 auto 20px;
+    font-size: clamp(34px, 5vw, 64px);
+    line-height: 1.15;
+}
+
+.hero-content h1 span {
+    color: #c9c6ff;
+}
+
+.hero-content p {
+    margin-bottom: 30px;
+    font-size: 16px;
+    color: #eeeeF5;
+}
+
+.btn-event {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 8px;
+    background: #635bff;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-event:hover {
+    background: #4f46e5;
+    transform: translateY(-2px);
+}
+
+.hero-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    background: rgba(8, 11, 18, 0.55);
+    color: white;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+
+/* ===== DETAIL PEMESANAN TIKET ===== */
+
+.order-page {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 0 35px;
+}
+
+.order-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.order-heading h1 {
+    color: #292940;
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.order-heading p,
+.order-card-heading p {
+    color: #777b8d;
+    font-size: 14px;
+}
+
+.order-badge {
+    background: #eeeaff;
+    color: #5b43d6;
+    padding: 9px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.order-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.order-summary-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #ffffff;
+    border: 1px solid #eeeeF5;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 4px 18px rgba(30, 30, 60, 0.04);
+}
+
+.order-summary-card p {
+    color: #777b8d;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.order-summary-card h2 {
+    color: #292940;
+    font-size: 25px;
+}
+
+.order-summary-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.order-summary-icon.purple {
+    background: #eeeaff;
+    color: #5b43d6;
+}
+
+.order-summary-icon.orange {
+    background: #fff1df;
+    color: #d98721;
+}
+
+.order-summary-icon.green {
+    background: #e3f8ec;
+    color: #20945a;
+}
+
+.order-card {
+    background: #ffffff;
+    border: 1px solid #eeeeF5;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 18px rgba(30, 30, 60, 0.04);
+}
+
+.order-card-heading {
+    margin-bottom: 22px;
+}
+
+.order-card-heading h2 {
+    color: #292940;
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.order-toolbar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.order-toolbar input,
+.order-toolbar select {
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #dfe1eb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #44445a;
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+}
+
+.order-toolbar input {
+    flex: 1;
+}
+
+.order-toolbar select {
+    width: 190px;
+}
+
+.order-toolbar input:focus,
+.order-toolbar select:focus {
+    border-color: #6652df;
+    box-shadow: 0 0 0 3px rgba(102, 82, 223, 0.10);
+}
+
+.order-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.order-table th {
+    padding: 14px 12px;
+    background: #f5f4fb;
+    color: #41415a;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.order-table td {
+    padding: 15px 12px;
+    color: #55556a;
+    border-bottom: 1px solid #eeeeF5;
+}
+
+.order-empty {
+    text-align: center;
+    padding: 40px 20px !important;
+}
+
+.order-empty-icon {
+    color: #7765dc;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.order-empty strong {
+    display: block;
+    color: #34344b;
+    margin-bottom: 8px;
+}
+
+.order-empty p {
+    color: #88889a;
+    font-size: 13px;
+}
+
+.order-information {
+    background: #f7f6ff;
+    border-left: 4px solid #6652df;
+    border-radius: 6px;
+    padding: 16px;
+    margin-top: 22px;
+}
+
+.order-information strong {
+    display: block;
+    color: #4133a4;
+    margin-bottom: 6px;
+}
+
+.order-information p {
+    color: #66667c;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+@media (max-width: 750px) {
+    .order-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .order-heading h1 {
+        font-size: 23px;
+    }
+
+    .order-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .order-card {
+        padding: 16px;
+    }
+
+    .order-toolbar {
+        flex-direction: column;
+    }
+
+    .order-toolbar select {
+        width: 100%;
+    }
+}
+
+
+/* =========================
+   LOGIN ADMIN TICKETPREMIUM
+========================= */
+
+.login-page {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(8, 11, 25, 0.90),
+            rgba(10, 15, 32, 0.72),
+            rgba(20, 12, 35, 0.82)
+        ),
+        url("../img/vendor.png") center / cover no-repeat fixed;
+}
+
+.login-back {
+    position: absolute;
+    top: 28px;
+    left: 32px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.login-back:hover {
+    color: #b8b2ff;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 460px;
+}
+
+.login-card {
+    padding: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+
+    background: rgba(18, 22, 42, 0.90);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.40);
+    color: white;
+}
+
+.login-brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 38px;
+}
+
+.login-logo {
+    width: 54px;
+    height: 54px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: white;
+}
+
+.login-brand h1 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.login-brand p {
+    color: #a5a9c0;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.login-heading {
+    margin-bottom: 28px;
+}
+
+.login-label {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #aaa3ff;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.login-heading h2 {
+    margin-bottom: 10px;
+    font-size: 29px;
+}
+
+.login-heading p {
+    color: #b7bbce;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.login-form .form-group {
+    margin-bottom: 22px;
+}
+
+.login-form label {
+    color: #e6e7f0;
+}
+
+.login-form .form-control {
+    min-height: 48px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.login-form .form-control::placeholder {
+    color: #858ba4;
+}
+
+.login-form .form-control:focus {
+    border-color: #756cff;
+    outline: 2px solid rgba(117, 108, 255, 0.15);
+}
+
+.login-button {
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+
+    border: none;
+    border-radius: 9px;
+    background: #635bff;
+    color: white;
+
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.login-button:hover {
+    background: #5046e5;
+    transform: translateY(-1px);
+}
+
+.login-button span {
+    font-size: 20px;
+}
+
+.login-security {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 24px;
+    color: #aeb3c8;
+    font-size: 12px;
+}
+
+.security-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #45d483;
+}
+
+.login-footer {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    color: #8e94ad;
+    text-align: center;
+    font-size: 11px;
+}
+
+@media (max-width: 480px) {
+    .login-page {
+        padding: 65px 16px 25px;
+    }
+
+    .login-back {
+        top: 22px;
+        left: 18px;
+    }
+
+    .login-card {
+        padding: 26px 22px;
+    }
+
+    .login-heading h2 {
+        font-size: 25px;
+    }
+}
+
+/* Perbaikan kolom input Login Admin */
+.login-page .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.login-page .form-group label {
+    display: block;
+    margin-bottom: 0;
+}
+
+.login-page .form-group input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 13px 15px;
+    border-radius: 8px;
+}
+
+/* Pastikan form tidak melebar keluar dari card */
+.login-page form {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* ===== PROFILE VENDOR ===== */
+
+.profile-page {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 10px 0 35px;
+}
+
+.profile-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.profile-heading h1 {
+    color: #292940;
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.profile-heading p {
+    color: #777b8d;
+    font-size: 14px;
+}
+
+.profile-badge {
+    padding: 9px 14px;
+    background: #e3f8ec;
+    color: #20945a;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.profile-banner {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 30px;
+    margin-bottom: 25px;
+    color: #ffffff;
+    border-radius: 14px;
+    background: linear-gradient(120deg, #332276, #6652df);
+}
+
+.profile-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 82px;
+    height: 82px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.17);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.profile-banner h2 {
+    font-size: 24px;
+    margin-bottom: 6px;
+}
+
+.profile-banner p {
+    font-size: 14px;
+    color: #e7e2ff;
+    margin-bottom: 12px;
+}
+
+.profile-account-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+}
+
+.profile-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #6ef0a5;
+}
+
+.profile-card {
+    padding: 26px;
+    background: #ffffff;
+    border: 1px solid #eeeeF5;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(30, 30, 60, 0.04);
+}
+
+.profile-card-heading {
+    margin-bottom: 25px;
+}
+
+.profile-card-heading h2 {
+    color: #292940;
+    font-size: 20px;
+    margin-bottom: 7px;
+}
+
+.profile-card-heading p {
+    color: #777b8d;
+    font-size: 14px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.profile-field label {
+    display: block;
+    color: #777b8d;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.profile-value {
+    padding: 13px 15px;
+    border: 1px solid #e5e5ef;
+    background: #fafaff;
+    border-radius: 8px;
+    color: #34344b;
+    font-size: 14px;
+}
+
+.profile-active {
+    color: #20945a;
+    font-weight: bold;
+}
+
+.profile-note {
+    margin-top: 28px;
+    padding: 17px;
+    background: #f7f6ff;
+    border-left: 4px solid #6652df;
+    border-radius: 6px;
+}
+
+.profile-note strong {
+    display: block;
+    color: #4133a4;
+    margin-bottom: 7px;
+}
+
+.profile-note p {
+    color: #66667c;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+@media (max-width: 650px) {
+    .profile-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .profile-heading h1 {
+        font-size: 23px;
+    }
+
+    .profile-banner {
+        padding: 22px;
+        gap: 15px;
+    }
+
+    .profile-avatar {
+        width: 65px;
+        height: 65px;
+        font-size: 22px;
+    }
+
+    .profile-banner h2 {
+        font-size: 20px;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        padding: 19px;
+    }
+}
+
+
+/* ===== HALAMAN KELOLA EVENT ===== */
+
+.event-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 0 35px;
+}
+
+.event-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.event-heading h1 {
+    font-size: 28px;
+    color: #24243a;
+    margin-bottom: 6px;
+}
+
+.event-heading p,
+.event-card-heading p {
+    color: #777b8d;
+    font-size: 14px;
+}
+
+.event-badge {
+    background: #eeeaff;
+    color: #5b43d6;
+    padding: 9px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.event-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 18px rgba(30, 30, 60, 0.06);
+    border: 1px solid #eeeeF5;
+}
+
+.event-card-heading {
+    margin-bottom: 22px;
+}
+
+.event-card-heading h2 {
+    color: #292940;
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+.event-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.event-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.event-form-group label {
+    color: #34344b;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.event-form-group input,
+.event-form-group textarea,
+.event-form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #dfe1eb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #33334a;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.event-form-group input:focus,
+.event-form-group textarea:focus,
+.event-form-group select:focus {
+    border-color: #6652df;
+    box-shadow: 0 0 0 3px rgba(102, 82, 223, 0.10);
+}
+
+.event-form-group textarea {
+    resize: vertical;
+}
+
+.event-full-width {
+    grid-column: 1 / -1;
+}
+
+.event-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.event-btn {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.event-btn-reset {
+    background: #f0f1f6;
+    color: #55556a;
+}
+
+.event-btn-add {
+    background: #5b43d6;
+    color: #ffffff;
+}
+
+.event-btn-add:hover {
+    background: #4832bd;
+}
+
+.event-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.event-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.event-table th {
+    background: #f5f4fb;
+    color: #41415a;
+    text-align: left;
+    padding: 14px 12px;
+    white-space: nowrap;
+}
+
+.event-table td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #eeeeF5;
+    color: #55556a;
+}
+
+.event-empty {
+    text-align: center;
+    padding: 30px 15px !important;
+    color: #88889a !important;
+}
+
+@media (max-width: 700px) {
+    .event-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .event-heading h1 {
+        font-size: 23px;
+    }
+
+    .event-card {
+        padding: 18px;
+    }
+
+    .event-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .event-full-width {
+        grid-column: auto;
+    }
+
+    .event-form-actions {
+        flex-direction: column;
+    }
+
+    .event-btn {
+        width: 100%;
+    }
+}
+
+
+/* ===== ABOUT TICKET PREMIUM ===== */
+
+.about-page {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 0 35px;
+}
+
+.about-hero {
+    padding: 55px 35px;
+    margin-bottom: 25px;
+    border-radius: 15px;
+    color: #ffffff;
+    background: linear-gradient(120deg, #29205c, #6652df);
+}
+
+.about-label {
+    display: inline-block;
+    padding: 7px 12px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.about-hero h1 {
+    font-size: 36px;
+    line-height: 1.35;
+    margin-bottom: 18px;
+}
+
+.about-hero h1 span {
+    color: #d8ccff;
+}
+
+.about-hero p {
+    max-width: 650px;
+    color: #e9e5ff;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.about-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    padding: 28px;
+    margin-bottom: 35px;
+    border: 1px solid #eeeeF5;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 18px rgba(30, 30, 60, 0.04);
+}
+
+.about-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    background: #eeeaff;
+    color: #5b43d6;
+    font-size: 30px;
+}
+
+.about-card h2 {
+    color: #292940;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.about-card p {
+    color: #66667c;
+    font-size: 14px;
+    line-height: 1.9;
+    margin-bottom: 12px;
+}
+
+.about-section-heading {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.about-section-heading h2 {
+    color: #292940;
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.about-section-heading p {
+    color: #777b8d;
+    font-size: 14px;
+}
+
+.about-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.about-feature-card {
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #eeeeF5;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(30, 30, 60, 0.08);
+}
+
+.about-feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 43px;
+    height: 43px;
+    margin-bottom: 17px;
+    border-radius: 10px;
+    background: #eeeaff;
+    color: #5b43d6;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.about-feature-card h3 {
+    color: #34344b;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.about-feature-card p {
+    color: #777b8d;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.about-closing {
+    padding: 35px 25px;
+    border-radius: 14px;
+    text-align: center;
+    background: #f3f0ff;
+}
+
+.about-closing h2 {
+    color: #342478;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.about-closing p {
+    color: #66617f;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+.about-button {
+    display: inline-block;
+    padding: 12px 22px;
+    background: #5b43d6;
+    color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.about-button:hover {
+    background: #4832bd;
+}
+
+@media (max-width: 650px) {
+    .about-hero {
+        padding: 35px 22px;
+    }
+
+    .about-hero h1 {
+        font-size: 28px;
+    }
+
+    .about-card {
+        flex-direction: column;
+        padding: 22px;
+    }
+
+    .about-feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== PERBAIKAN NAVBAR HOME VENDOR ===== */
+
+.navbar {
+    width: 100%;
+    min-height: 80px;
+    height: 80px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.navbar .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.navbar .brand img,
+.navbar .brand-logo {
+    width: 48px;
+    height: 48px;
+    max-width: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.navbar .brand span {
+    white-space: nowrap;
+}
+
+.navbar .nav-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 28px;
+    flex: 1;
+}
+
+.navbar .nav-menu a {
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+/* Supaya logo dan navbar tidak berantakan di layar kecil */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 16px;
+        gap: 12px;
+    }
+
+    .navbar .nav-menu {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+}
+/* Membuat logo navbar berbentuk bulat */
+.navbar .brand img,
+.navbar .brand-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    flex-shrink: 0;
+}

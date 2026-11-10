@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | TicketPremium</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #101522;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .error-card {
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 100px;
+            margin: 0;
+            color: #ff4757;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #b8becb;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #ff4757;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-card">
+        <h1>404</h1>
+        <h2>Event Tidak Ditemukan</h2>
+        <p>Maaf, event yang kamu cari tidak tersedia.</p>
+        <a href="{{ url_for('halaman_event017') }}">Kembali ke Daftar Event</a>
+    </div>
+</body>
+</html>

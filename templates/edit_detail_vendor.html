@@ -1,0 +1,139 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Edit Harga | Ticket Hartutix{% endblock %}
+
+{% block isi3 %}
+<div class="order-page">
+
+    <div class="order-card">
+        <div class="order-card-heading">
+            <h2>Edit Harga Tiket</h2>
+            <p>Perbarui informasi harga dan stok tiket.</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data"
+              action="{{ url_for('update_harga', id_tiket028=harga_data.id_tiket028) }}"
+              class="event-form-grid">
+
+            <div class="event-form-group">
+                <label>ID Harga</label>
+                <input name="id_tiket028"
+                       value="{{ harga_data.id_tiket028 }}" readonly>
+            </div>
+
+            <div class="event-form-group">
+                <label>Nama Tiket</label>
+                <input name="nama_tiket"
+                       value="{{ harga_data.nama_tiket028 }}" required>
+            </div>
+
+            <div class="event-form-group">
+                <label>Kode Event</label>
+                <select name="kode_event" id="kode_event_edit" required>
+                    <option value="">Pilih Kode Event</option>
+                    {% for event in daftar_event %}
+                    <option value="{{ event.kode_event017 }}" 
+                            data-nama="{{ event.nama_band017 }}"
+                            data-foto="{% if event.foto_event017 %}{{ url_for('static', filename='uploads/kelompok3/events/' ~ event.foto_event017) }}{% endif %}"
+                            {% if harga_data.kode_event028 == event.kode_event017 %}selected{% endif %}>
+                        {{ event.kode_event017 }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="event-form-group">
+                <label>Nama Event</label>
+                <input name="nama_event"
+                       id="nama_event_edit"
+                       value="{{ harga_data.nama_event_display or harga_data.nama_event028 }}" 
+                       readonly
+                       required>
+            </div>
+
+            <div class="event-form-group">
+                <label>Harga Tiket (Rp)</label>
+                <input type="number" min="0" name="harga_tiket"
+                       value="{{ harga_data.harga_tiket028 }}" required>
+            </div>
+
+            <div class="event-form-group">
+                <label>Stok Tiket</label>
+                <input type="number" min="0" name="stok_tiket"
+                       value="{{ harga_data.stok_tiket028 }}" required>
+            </div>
+
+            <div class="event-form-group">
+                <label>Status</label>
+                <select name="status_tiket028" required>
+                    {% for status in ['Aktif', 'Tidak Aktif'] %}
+                    <option value="{{ status }}"
+                        {% if harga_data.status_tiket028 == status %}selected{% endif %}>
+                        {{ status }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="event-form-group event-full-width">
+                <label for="foto_tiket028">Gambar Tiket</label>
+                {% set preview_awal = harga_data.foto_tiket or harga_data.foto_event_preview %}
+                <img id="preview_foto_tiket"
+                     src="{{ url_for('static', filename=preview_awal) if preview_awal else '' }}"
+                     alt="Preview gambar tiket"
+                     style="display:{{ 'block' if preview_awal else 'none' }}; width:180px; height:130px; object-fit:cover; border-radius:10px; margin-bottom:12px;">
+                <input type="file" id="foto_tiket028" name="foto_tiket028"
+                       accept=".png,.jpg,.jpeg,.webp">
+                <small>Gambar mengikuti poster event yang dipilih. Unggah file untuk memakai gambar lain.</small>
+            </div>
+
+            <div class="event-form-group" style="align-self:end">
+                <button class="event-btn event-btn-add" type="submit">
+                    Simpan Perubahan
+                </button>
+
+                <a class="event-btn event-btn-reset"
+                   href="{{ url_for('halaman_vendor') }}">
+                    Batal
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<script>
+    const kodeEventEdit = document.getElementById('kode_event_edit');
+    const namaEventEdit = document.getElementById('nama_event_edit');
+    const fotoTiketEdit = document.getElementById('foto_tiket028');
+    const previewFotoEdit = document.getElementById('preview_foto_tiket');
+    let fotoTiketEditPreviewUrl = null;
+
+    function previewEventTerpilih() {
+        const option = kodeEventEdit.options[kodeEventEdit.selectedIndex];
+        namaEventEdit.value = option.getAttribute('data-nama') || '';
+        const urlFotoEvent = option.getAttribute('data-foto');
+        previewFotoEdit.src = urlFotoEvent || '';
+        previewFotoEdit.style.display = urlFotoEvent ? 'block' : 'none';
+    }
+
+    kodeEventEdit.addEventListener('change', previewEventTerpilih);
+    fotoTiketEdit.addEventListener('change', function() {
+        if (fotoTiketEditPreviewUrl) {
+            URL.revokeObjectURL(fotoTiketEditPreviewUrl);
+            fotoTiketEditPreviewUrl = null;
+        }
+
+        if (this.files && this.files[0]) {
+            fotoTiketEditPreviewUrl = URL.createObjectURL(this.files[0]);
+            previewFotoEdit.src = fotoTiketEditPreviewUrl;
+            previewFotoEdit.style.display = 'block';
+        } else {
+            previewEventTerpilih();
+        }
+    });
+</script>
+
+{% endblock %}

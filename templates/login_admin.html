@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Ticket Hartutix</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Styling tambahan khusus pilihan role agar rapi */
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .role-option {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            border: 2px solid #2a3447;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #b8becb;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .role-option input {
+            display: none;
+        }
+        .role-option.active {
+            border-color: #ff4757;
+            background: rgba(255, 71, 87, 0.1);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="login-page">
+
+    <main class="login-wrapper">
+        <section class="login-card">
+
+            <div class="login-brand">
+                <img
+                    src="{{ url_for('static', filename='img/logo.jpeg') }}"
+                    alt="Logo TicketHartutix"
+                    class="login-logo">
+
+                <div>
+                    <h1>Ticket Hartutix</h1>
+                    <p>MANAGEMENT SYSTEM</p>
+                </div>
+            </div>
+
+            <div class="login-heading">
+                <span class="login-label">AUTENTIKASI AKUN</span>
+                <h2>Selamat Datang!</h2>
+                <p>Silakan pilih role dan login untuk masuk ke sistem.</p>
+            </div>
+
+            <form method="POST"
+                  action="{{ url_for('login_admin') }}"
+                  class="login-form">
+
+                <!-- Pilihan Role Login -->
+                <div class="role-selector">
+                    <label class="role-option active" id="label-admin">
+                        <input type="radio" name="login_role" value="admin" checked> Admin / Vendor
+                    </label>
+                    <label class="role-option" id="label-customer">
+                        <input type="radio" name="login_role" value="customer"> Customer
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="form-control"
+                        placeholder="Masukkan username"
+                        autocomplete="username"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Masukkan password"
+                        autocomplete="current-password"
+                        required>
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login 
+                    <span>&rarr;</span>
+                </button>
+
+            </form>
+
+            <div class="login-security">
+                <span class="security-dot"></span>
+                Sistem Keamanan Terintegrasi
+            </div>
+
+            <p class="login-footer">
+                &copy; 2026 Ticket Hartutix. All rights reserved.
+            </p>
+
+        </section>
+    </main>
+
+    <!-- Script interaktif untuk tombol pilihan role -->
+    <script>
+        const roleOptions = document.querySelectorAll('.role-option');
+        roleOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                roleOptions.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                option.querySelector('input').checked = true;
+            });
+        });
+    </script>
+
+    {% if error %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Gagal!',
+            text: {{ error | tojson }},
+            confirmButtonText: 'Coba Lagi',
+            confirmButtonColor: '#ff4757'
+        });
+    </script>
+    {% endif %}
+
+</body>
+</html>

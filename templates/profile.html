@@ -1,0 +1,193 @@
+{% extends 'layout.html' %} {% block title %}Profil Vendor | Ticket Hartutix{%
+endblock %} {% block isi3 %}
+
+<div class="profile-page">
+  <div class="profile-heading">
+    <div>
+      <h1>Profil Vendor</h1>
+      <p>Kelola informasi identitas dan usaha Ticket Hartutix.</p>
+    </div>
+
+    <span class="profile-badge">Profil Usaha</span>
+  </div>
+
+  <!-- FORM TAMBAH PROFIL -->
+  <div class="profile-card">
+    <div class="profile-card-heading">
+      <h2>Tambah Profil Vendor</h2>
+      <p>Masukkan informasi identitas usaha vendor.</p>
+    </div>
+
+    <form
+      action="{{ url_for('tambah_profile030') }}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <div class="profile-grid">
+        <div class="profile-field">
+          <label for="nama_profile">Nama Vendor</label>
+          <input
+            type="text"
+            id="nama_profile"
+            name="nama_profile030"
+            placeholder="Nama usaha atau vendor"
+            required
+          />
+        </div>
+
+        <div class="profile-field">
+          <label for="jenis_usaha">Jenis Usaha</label>
+          <input
+            type="text"
+            id="jenis_usaha"
+            name="jenis_usaha030"
+            placeholder="Contoh: Penjualan Tiket Konser"
+            required
+          />
+        </div>
+
+        <div class="profile-field">
+          <label for="email_profile">Email Vendor</label>
+          <input
+            type="email"
+            id="email_profile"
+            name="email_profile030"
+            placeholder="Email usaha"
+            required
+          />
+        </div>
+
+        <div class="profile-field">
+          <label for="telepon_profile">Nomor Telepon</label>
+          <input
+            type="text"
+            id="telepon_profile"
+            name="telepon_profile030"
+            placeholder="Nomor telepon usaha"
+            required
+          />
+        </div>
+
+        <div class="profile-field">
+          <label for="alamat_profile">Alamat Usaha</label>
+          <input
+            type="text"
+            id="alamat_profile"
+            name="alamat_profile030"
+            placeholder="Alamat usaha"
+            required
+          />
+        </div>
+
+        <input
+          type="file"
+          name="foto_profile030"
+          accept=".png,.jpg,.jpeg,.webp"
+          required
+        />
+
+        <div class="profile-field">
+          <label for="status_profile">Status Akun</label>
+          <select id="status_profile" name="status_profile030" required>
+            <option value="Aktif">Aktif</option>
+            <option value="Nonaktif">Nonaktif</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="profile-btn-submit">
+        <span>+</span> Tambah Profil
+      </button>
+    </form>
+  </div>
+
+  <!-- DAFTAR PROFIL -->
+  <div class="profile-card">
+    <div class="profile-card-heading">
+      <h2>Daftar Profil Vendor</h2>
+      <p>Data identitas usaha yang telah tersimpan.</p>
+    </div>
+
+    <div class="profile-table-wrapper">
+      <table class="profile-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Foto</th>
+            <th>Nama Vendor</th>
+            <th>Jenis Usaha</th>
+            <th>Email</th>
+            <th>Telepon</th>
+            <th>Alamat</th>
+            <th>Status Akun</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for profil in daftar_profile %}
+          <tr>
+            <td>{{ loop.index }}</td>
+
+            <!-- FOTO PROFIL -->
+            <td>
+              {% if profil.foto_profile030 %}
+              <img
+                src="{{ url_for('static', filename='uploads/kelompok3/profile/' ~ profil.foto_profile030) }}"
+                alt="Foto {{ profil.nama_profile030 }}"
+                class="profile-table-image"
+              />
+              {% else %}
+              <span>Tidak ada foto</span>
+              {% endif %}
+            </td>
+
+            <td>{{ profil.nama_profile030 }}</td>
+            <td>{{ profil.jenis_usaha030 }}</td>
+            <td>{{ profil.email_profile030 }}</td>
+            <td>{{ profil.telepon_profile030 }}</td>
+            <td>{{ profil.alamat_profile030 }}</td>
+            <td>{{ profil.status_profile030 }}</td>
+
+            <!-- KOLOM AKSI -->
+            <td>
+              <div class="aksi-profile">
+                <a
+                  href="{{ url_for('form_edit_profile030', id_profile030=profil.id_profile030) }}"
+                  class="btn-edit-profile"
+                >
+                  Edit
+                </a>
+
+                <form
+                  method="POST"
+                  action="{{ url_for('hapus_profile030', id_profile030=profil.id_profile030) }}"
+                >
+                  <button type="submit" class="btn-hapus-profile">Hapus</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+
+          {% else %}
+          <tr>
+            <td colspan="9" class="profile-empty">
+              Belum ada profil vendor yang tersimpan.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="profile-note">
+      <strong>Informasi</strong>
+      <p>
+        Profil digunakan untuk menyimpan identitas usaha vendor, bukan informasi
+        pemesanan pelanggan.
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,146 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Edit Event | Ticket Hartutix{% endblock %}
+
+{% block isi3 %}
+
+<div class="event-page">
+    <div class="event-heading">
+        <div>
+            <h1>Edit Event Konser</h1>
+            <p>Perbarui informasi event Ticket Hartutix.</p>
+        </div>
+    </div>
+
+    <div class="event-card">
+        <div class="event-card-heading">
+            <h2>Form Edit Event</h2>
+            <p>Ubah data event kemudian klik Simpan Perubahan.</p>
+        </div>
+
+        <form method="POST"
+        enctype="multipart/form-data"
+        action="{{ url_for('update_event017',
+                         kode_event017=event017_data.kode_event017) }}">
+
+            <div class="event-form-grid">
+                            <div class="event-form-group">
+                <label for="kode_event017">Kode Event</label>
+                <input
+                    type="text"
+                    id="kode_event017"
+                    name="kode_event017"
+                    value="{{ event017_data.kode_event017 }}"
+                    required
+                />
+            </div>
+
+                        <div class="event-form-group">
+                <label for="nama_band017">Nama Band</label>
+                <input
+                    type="text"
+                    id="nama_band017"
+                    name="nama_band017"
+                    value="{{ event017_data.nama_band017 }}"
+                    required
+                >
+            </div>
+                                <div class="event-form-group">
+                    <label for="nama_vendor017">Nama Vendor</label>
+                    <select id="nama_vendor017" name="nama_vendor017" required>
+                        <option value="">-- Pilih Nama Vendor --</option>
+
+                        {% for profil in daftar_profile %}
+                            <option value="{{ profil.nama_profile030 }}"
+                                {% if event017_data.nama_vendor017 == profil.nama_profile030 %}selected{% endif %}>
+                                {{ profil.nama_profile030 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="event-form-group">
+                    <label for="tanggal_event017">Tanggal Event</label>
+                    <input type="date"
+                        id="tanggal_event017"
+                        name="tanggal_event017"
+                        value="{{ event017_data.tanggal_event017 }}"
+                        min="2026-12-01"
+                        max="2026-12-31"
+                        required>
+                </div>
+
+                <div class="event-form-group">
+                    <label for="jadwal_event017">Jadwal Event</label>
+                <input type="time" id="jadwal_event017"
+                name="jadwal_event017"
+                value="{{ event017_data.jadwal_event017 }}"
+                required>
+                </div>
+
+                <div class="event-form-group event-full-width">
+                    <label for="alamat_event017">Alamat / Lokasi</label>
+                    <input type="text" id="alamat_event017"
+                           name="alamat_event017"
+                           value="{{ event017_data.alamat_event017 }}"
+                           required>
+                </div>
+                
+                <div class="event-form-group event-full-width">
+                    <label for="status_event017">Status Event</label>
+                    <select id="status_event017"
+                            name="status_event017" required>
+                        <option value="Aktif"
+                            {% if event017_data.status_event017 == 'Aktif' %}selected{% endif %}>
+                            Aktif
+                        </option>
+                        <option value="Ditunda"
+                            {% if event017_data.status_event017 == 'Ditunda' %}selected{% endif %}>
+                            Ditunda
+                        </option>
+                        <option value="Dibatalkan"
+                            {% if event017_data.status_event017 == 'Dibatalkan' %}selected{% endif %}>
+                            Dibatalkan
+                        </option>
+                    </select>
+                </div>
+
+                
+                    <div class="event-form-group event-full-width">
+                <label>Poster Event Saat Ini</label>
+
+            {% if event017_data.foto_event017 %}
+                <div class="preview-poster">
+                    <img
+                        src="{{ url_for('static', filename='uploads/kelompok3/events/' ~ event017_data.foto_event017) }}"
+                        alt="Poster {{ event017_data.nama_band017 }}">
+                </div>
+            {% else %}
+                <p>Belum ada poster event.</p>
+            {% endif %}
+
+            <label for="foto_event017">Ganti Poster Event (Opsional)</label>
+
+            <input type="file"
+                id="foto_event017"
+                name="foto_event017"
+                accept=".png,.jpg,.jpeg,.webp">
+
+            <small>Kosongkan jika tidak ingin mengganti poster.</small>
+        </div>
+            <div class="event-form-actions">
+    <a href="{{ url_for('halaman_event017') }}" class="btn-cancel">
+        Batal
+    </a>
+
+    <button type="submit" class="btn-submit">
+        Simpan Perubahan
+    </button>
+</div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

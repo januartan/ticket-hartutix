@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+
+{% block title %}Dashboard Customer | Ticket Hartutix{% endblock %}
+
+{% block isi3 %}
+
+<div class="event-page">
+
+    <!-- JUDUL DASHBOARD -->
+    <div class="event-heading">
+        <div>
+            <h1>Dashboard Customer</h1>
+            <p>Selamat datang di Ticket Hartutix.</p>
+        </div>
+    </div>
+
+    <!-- SAMBUTAN CUSTOMER -->
+    <div class="customer-welcome-card">
+
+        <h2>Halo, {{ session['username'] }}!</h2>
+
+        <p>
+            Selamat datang di Ticket Hartutix,
+            tempat kamu menemukan dan mendapatkan tiket konser favoritmu.
+        </p>
+
+        <p>
+            Temukan berbagai event menarik, lihat informasi konser,
+            dan pilih tiket sesuai keinginanmu.
+        </p>
+
+    </div>
+
+    <!-- MENU CUSTOMER -->
+    <div class="customer-home-menu">
+
+        <div class="customer-home-item">
+            <h3>🎤 Daftar Event Konser</h3>
+            <p>
+                Lihat berbagai event konser yang tersedia
+                beserta informasi tanggal, jadwal, dan lokasi.
+            </p>
+
+            <a href="{{ url_for('customer_event') }}"
+               class="customer-menu-btn">
+                Lihat Daftar Event
+            </a>
+        </div>
+
+        <div class="customer-home-item">
+            <h3>🎟️ Daftar Tiket</h3>
+            <p>
+                Temukan pilihan tiket konser dan informasi
+                harga tiket yang tersedia.
+            </p>
+
+            <a href="{{ url_for('customer_tiket') }}"
+               class="customer-menu-btn">
+                Lihat Daftar Tiket
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

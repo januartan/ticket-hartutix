@@ -1,0 +1,243 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Harga Tiket | Ticket Hartutix{% endblock %}
+
+{% block isi3 %}
+
+<div class="order-page">
+
+    <div class="order-heading">
+        <div>
+            <h1>Manajemen Harga Tiket</h1>
+            <p>Kelola harga dan ketersediaan tiket untuk setiap event.</p>
+        </div>
+        <span class="order-badge">Vendor Dashboard</span>
+    </div>
+
+    <!-- RINGKASAN HARGA -->
+    <div class="order-summary">
+        <div class="order-summary-card">
+            <div>
+                <p>Total Harga Tiket</p>
+                <h2>{{ datatiket|length }}</h2>
+            </div>
+        </div>
+
+        <div class="order-summary-card">
+            <div>
+                <p>Aktif</p>
+                <h2>{{ datatiket|selectattr('status_tiket028', 'equalto', 'Aktif')|list|length }}</h2>
+            </div>
+        </div>
+
+        <div class="order-summary-card">
+            <div>
+                <p>Tidak Aktif</p>
+                <h2>{{ datatiket|selectattr('status_tiket028', 'equalto', 'Tidak Aktif')|list|length }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAMBAH DATA HARGA -->
+    <div class="order-card">
+        <div class="order-card-heading">
+            <h2>Tambah Harga Tiket</h2>
+            <p>Tentukan harga dan stok untuk tiket event.</p>
+        </div>
+
+        <form action="{{ url_for('tambah_harga028') }}" method="POST"
+              enctype="multipart/form-data" class="order-form-grid">
+
+            <div class="order-form-group">
+                <label>Nama Tiket</label>
+                <input type="text"
+                       name="nama_tiket028"
+                       placeholder="Contoh: VIP, Regular, VVIP"
+                       required>
+            </div>
+
+            <div class="order-form-group">
+                <label>Kode Event</label>
+                <select name="kode_event028" id="kode_event" required>
+                    <option value="">Pilih Kode Event</option>
+                    {% for event in daftar_event %}
+                    <option value="{{ event.kode_event017 }}" 
+                            data-nama="{{ event.nama_band017 }}"
+                            data-foto="{% if event.foto_event017 %}{{ url_for('static', filename='uploads/kelompok3/events/' ~ event.foto_event017) }}{% endif %}">
+                        {{ event.kode_event017 }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="order-form-group">
+                <label>Nama Event</label>
+                <input type="text"
+                       name="nama_event028"
+                       id="nama_event"
+                       placeholder="Nama event (otomatis terisi)"
+                       readonly
+                       required>
+            </div>
+
+            <div class="order-form-group">
+                <label>Harga Tiket (Rp)</label>
+                <input type="number"
+                       name="harga_tiket028"
+                       placeholder="Harga per tiket"
+                       min="0"
+                       required>
+            </div>
+
+            <div class="order-form-group">
+                <label>Stok Tiket</label>
+                <input type="number"
+                       name="stok_tiket028"
+                       placeholder="Jumlah stok tersedia"
+                       min="0"
+                       required>
+            </div>
+
+            <div class="order-form-group">
+                <label>Status</label>
+                <select name="status_tiket028" required>
+                    <option value="Aktif">Aktif</option>
+                    <option value="Tidak Aktif">Tidak Aktif</option>
+                </select>
+            </div>
+
+            <div class="order-form-group">
+                <label for="foto_tiket028">Gambar Tiket (Opsional)</label>
+                <input type="file" id="foto_tiket028" name="foto_tiket028"
+                       accept=".png,.jpg,.jpeg,.webp">
+                <small>Poster event akan disalin otomatis. Unggah file untuk memakai gambar lain.</small>
+                <img id="preview_foto_tiket" alt="Preview gambar tiket"
+                     style="display:none; width:160px; height:110px; object-fit:cover; border-radius:8px; margin-top:10px;">
+            </div>
+
+            <div class="order-form-actions">
+                <button type="submit" class="order-btn-submit">Tambah Harga</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- DAFTAR HARGA -->
+    <div class="order-card">
+        <div class="order-card-heading">
+            <h2>Daftar Harga Tiket</h2>
+            <p>Informasi harga dan ketersediaan tiket untuk setiap event.</p>
+        </div>
+
+        <div class="order-table-wrapper">
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Gambar</th>
+                        <th>Nama Tiket</th>
+                        <th>Kode Event</th>
+                        <th>Event</th>
+                        <th>Harga</th>
+                        <th>Stok</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for harga in datatiket %}
+                    <tr>
+                        <td>{{ harga.id_tiket028 }}</td>
+                        <td>
+                            {% if harga.foto_tiket %}
+                            <img src="{{ url_for('static', filename=harga.foto_tiket) }}"
+                                 alt="Gambar {{ harga.nama_tiket028 }}"
+                                 width="70" height="70"
+                                 style="object-fit:cover; border-radius:8px;">
+                            {% else %}
+                            <span>-</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ harga.nama_tiket028 }}</td>
+                        <td>{{ harga.kode_event028 }}</td>
+                        <td>{{ harga.nama_event_display or harga.nama_event028 }}</td>
+                        <td>Rp {{ "{:,.0f}".format(harga.harga_tiket028|float).replace(",", ".") }}</td>
+                        <td>{{ harga.stok_tiket028 }}</td>
+                        <td>{{ harga.status_tiket028 }}</td>
+                        <td>
+                            
+    <div class="aksi-tombol">
+        <a href="{{ url_for('form_edit_harga', id_tiket028=harga.id_tiket028) }}"
+           class="btn-edit">
+            Edit
+        </a>
+
+        <form action="{{ url_for('hapus_harga', id_tiket028=harga.id_tiket028) }}"
+              method="POST"
+              onsubmit="return confirm('Yakin ingin menghapus harga ini?');">
+            <button type="submit" class="btn-hapus">
+                Hapus
+            </button>
+        </form>
+    </div>
+</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="9" class="order-empty">
+                            Belum ada harga yang tercatat.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="order-information">
+            <strong>Informasi</strong>
+            <p>
+                Vendor mengatur harga dan stok tiket untuk setiap event.
+                Status "Aktif" berarti tiket tersedia untuk dibeli,
+                sedangkan "Tidak Aktif" berarti tiket tidak dapat dibeli saat ini.
+            </p>
+        </div>
+    </div>
+
+</div>
+  {% block scripts %}
+  <script>
+    const kodeEventInput = document.getElementById('kode_event');
+    const namaEventInput = document.getElementById('nama_event');
+    const fotoTiketInput = document.getElementById('foto_tiket028');
+    const previewFotoTiket = document.getElementById('preview_foto_tiket');
+    let fotoTiketPreviewUrl = null;
+
+    function tampilkanPreviewFotoTiket(url) {
+        previewFotoTiket.src = url || '';
+        previewFotoTiket.style.display = url ? 'block' : 'none';
+    }
+
+    function pilihFotoEvent() {
+        const option = kodeEventInput.options[kodeEventInput.selectedIndex];
+        namaEventInput.value = option.getAttribute('data-nama') || '';
+        tampilkanPreviewFotoTiket(option.getAttribute('data-foto'));
+    }
+
+    kodeEventInput.addEventListener('change', pilihFotoEvent);
+    fotoTiketInput.addEventListener('change', function() {
+        if (fotoTiketPreviewUrl) {
+            URL.revokeObjectURL(fotoTiketPreviewUrl);
+            fotoTiketPreviewUrl = null;
+        }
+
+        if (this.files && this.files[0]) {
+            fotoTiketPreviewUrl = URL.createObjectURL(this.files[0]);
+            tampilkanPreviewFotoTiket(fotoTiketPreviewUrl);
+        } else {
+            pilihFotoEvent();
+        }
+    });
+  </script>
+  {% endblock %}
+{% endblock %}

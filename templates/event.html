@@ -1,0 +1,342 @@
+{% extends 'layout.html' %} {% block title %}Kelola Event | Hartutix {% endblock
+%} {% block isi3 %}
+
+<div class="event-page">
+  <div class="event-heading">
+    <div>
+      <h1>Kelola Event Konser</h1>
+      <p>Tambah dan kelola informasi event konser Ticket Hartutix.</p>
+    </div>
+    <span class="event-badge">Vendor Dashboard</span>
+  </div>
+
+  <div class="event-card">
+    <div class="event-card-heading">
+      <h2>Form Data Event</h2>
+      <p>Lengkapi informasi konser di bawah ini.</p>
+    </div>
+
+    <form
+      id="form_event017"
+      method="POST"
+      enctype="multipart/form-data"
+      action="{{ url_for('tambah_event017') }}"
+    >
+      <div class="event-form-grid">
+        <div class="event-form-group">
+          <label for="kode_event017">Kode Event</label>
+          <input
+            type="text"
+            id="kode_event017"
+            name="kode_event017"
+            placeholder="Contoh: EVT017"
+            required
+          />
+        </div>
+
+        <div class="event-form-group">
+          <label for="nama_band017">Nama Band</label>
+          <input
+            type="text"
+            id="nama_band017"
+            name="nama_band017"
+            placeholder="Masukkan nama band"
+            required
+          />
+        </div>
+
+        <div class="event-form-group">
+          <label for="nama_vendor017">Nama Vendor</label>
+          <select name="nama_vendor017" id="nama_vendor017" required>
+            <option value="">-- Pilih Nama Vendor --</option>
+
+            {% for profil in daftar_profile %}
+            <option value="{{ profil.nama_profile030 }}">
+              {{ profil.nama_profile030 }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Tanggal Event</label>
+          <input
+            type="date"
+            name="tanggal_event017"
+            min="2026-12-01"
+            max="2026-12-31"
+            required
+          />
+        </div>
+
+        <div class="event-form-group">
+          <label for="jadwal_event017">Jadwal / Jam</label>
+          <input
+            type="time"
+            id="jadwal_event017"
+            name="jadwal_event017"
+            required
+          />
+        </div>
+
+        <div class="event-form-group event-full-width">
+          <label for="alamat_event017">Alamat / Lokasi</label>
+          <input
+            type="text"
+            id="alamat_event017"
+            name="alamat_event017"
+            placeholder="Masukkan lokasi konser"
+            required
+          />
+        </div>
+
+        <div class="event-form-group event-full-width">
+          <label for="status_event017">Status Event</label>
+          <select id="status_event017" name="status_event017" required>
+            <option value="Aktif">Aktif</option>
+            <option value="Ditunda">Ditunda</option>
+            <option value="Dibatalkan">Dibatalkan</option>
+          </select>
+        </div>
+
+        <div class="event-form-group event-full-width">
+          <label for="foto_event017">Poster Event Konser</label>
+          <input
+            type="file"
+            id="foto_event017"
+            name="foto_event017"
+            accept=".png,.jpg,.jpeg,.webp"
+            required
+          />
+          <small
+            >Unggah poster promosi konser dalam format JPG, PNG,jpeg atau
+            WEBP.</small
+          >
+        </div>
+      </div>
+
+      <div class="event-form-actions">
+        <button type="reset" class="event-btn event-btn-reset">Reset</button>
+
+        <button type="submit" class="event-btn event-btn-add">
+          + Tambah Event
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="event-card event-list-card">
+    <div class="event-card-heading">
+      <h2>Daftar Event</h2>
+      <p>Informasi event konser yang dikelola vendor.</p>
+    </div>
+
+    <!-- PENCARIAN DAN FILTER EVENT -->
+    <div class="event-filter-bar">
+      <div class="event-search-group">
+        <label for="cari_event017">Cari Event</label>
+        <input
+          type="search"
+          id="cari_event017"
+          placeholder="Cari kode event atau nama band..."
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="event-status-group">
+        <label for="filter_status017">Filter Status</label>
+        <select id="filter_status017">
+          <option value="">Semua Status</option>
+          <option value="aktif">Aktif</option>
+          <option value="ditunda">Ditunda</option>
+          <option value="dibatalkan">Dibatalkan</option>
+        </select>
+      </div>
+
+      <button
+        type="button"
+        id="reset_filter017"
+        class="event-btn event-btn-reset"
+      >
+        Reset Filter
+      </button>
+    </div>
+
+    <p id="hasil_filter017" class="event-filter-info" aria-live="polite"></p>
+
+    <div class="event-table-wrapper">
+      <table class="event-table">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Kode Event</th>
+            <th>Nama Band</th>
+            <th>Poster</th>
+            <th>Nama Vendor</th>
+            <th>Tanggal</th>
+            <th>Jadwal</th>
+            <th>Lokasi</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+
+        <tbody id="daftar_event_body017">
+          {% for event in daftar_event017 %}
+          <tr class="baris-event017">
+            <td>{{ loop.index }}</td>
+            <td class="data-kode-event017">{{ event.kode_event017 }}</td>
+
+            <td class="data-nama-band017">{{ event.nama_band017 }}</td>
+
+            <td>
+              {% if event.foto_event017 %}
+              <img
+                src="{{ url_for('static', filename='uploads/kelompok3/events/' ~ event.foto_event017) }}"
+                alt="Poster {{ event.nama_band017 }}"
+                width="70"
+                height="70"
+                style="object-fit: cover; border-radius: 8px"
+              />
+              {% else %} Belum ada poster {% endif %}
+            </td>
+
+            <td>{{ event.nama_vendor017 }}</td>
+            <td>{{ event.tanggal_event017 }}</td>
+            <td>{{ event.jadwal_event017 }}</td>
+            <td>{{ event.alamat_event017 }}</td>
+
+            <td class="data-status-event017">{{ event.status_event017 }}</td>
+
+            <td class="kolom-aksi">
+              <div class="aksi-tombol">
+                <a
+                  href="{{ url_for('form_edit_event017', kode_event017=event.kode_event017) }}"
+                  class="event-btn event-btn-add"
+                >
+                  Edit
+                </a>
+
+                <form
+                  method="POST"
+                  action="{{ url_for('hapus_event017', kode_event017=event.kode_event017) }}"
+                  class="form-hapus-event"
+                >
+                  <button type="submit" class="event-btn event-btn-reset">
+                    Hapus
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+
+          {% else %}
+          <tr class="baris-kosong-event017">
+            <td colspan="8" class="event-empty">Belum ada data event.</td>
+          </tr>
+          {% endfor %}
+
+          <tr id="event_tidak_ditemukan017" hidden>
+            <td colspan="8" class="event-empty">Event tidak ditemukan.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block akhir3 %}
+<script>
+  //menjalankan kode JavaScript setelah seluruh struktur HTML selesai dimuat oleh browser
+  document.addEventListener("DOMContentLoaded", function () {
+    // PENCARIAN DAN FILTER EVENT
+    const inputCari = document.getElementById("cari_event017"); //berfungsi untuk mencari event berdasarkan kode event atau nama band.
+    const filterStatus = document.getElementById("filter_status017");
+    const tombolReset = document.getElementById("reset_filter017");
+    const infoHasil = document.getElementById("hasil_filter017");
+    const barisEvent = document.querySelectorAll(".baris-event017");
+    const pesanKosong = document.getElementById("event_tidak_ditemukan017");
+
+    function filterEvent() {
+      const kataKunci = inputCari.value.trim().toLowerCase();
+      const statusDipilih = filterStatus.value; //mengambil nilai status yang dipilih pada filter status
+
+      let jumlahTampil = 0; // menamilkan jumlah event yang sesuai filter
+
+      barisEvent.forEach(function (baris) {
+        const kode = baris
+          .querySelector(".data-kode-event017")
+          .textContent.toLowerCase()
+          .trim();
+
+        const nama = baris
+          .querySelector(".data-nama-band017")
+          .textContent.toLowerCase()
+          .trim();
+
+        const status = baris
+          .querySelector(".data-status-event017")
+          .textContent.toLowerCase()
+          .trim();
+
+        const cocokPencarian =
+          kode.includes(kataKunci) || nama.includes(kataKunci);
+
+        const cocokStatus = statusDipilih === "" || status === statusDipilih;
+
+        const tampil = cocokPencarian && cocokStatus;
+
+        baris.hidden = !tampil; // menyembunyikan baris jika tidak sesuai filter
+
+        if (tampil) {
+          jumlahTampil++; //menambah jumlah event yang sesuai filter
+        }
+      });
+
+      // Tampilkan pesan ketika tidak ada hasil
+      pesanKosong.hidden = jumlahTampil !== 0;
+
+      const adaDataEvent = barisEvent.length > 0; //mengecek apakah ada data event yang tersedia
+
+      if (adaDataEvent) {
+        infoHasil.textContent =
+          "Menampilkan " +
+          jumlahTampil +
+          " dari " +
+          barisEvent.length +
+          " event."; //jika ada data event, maka akan menampilkan jumlah event yang sesuai filter dan jumlah total event.
+      } else {
+        infoHasil.textContent = "Belum ada data event.";
+      }
+    }
+
+    inputCari.addEventListener("input", filterEvent); //berfungsi untuk memanggil fungsi filterEvent setiap kali pengguna mengetik di input pencarian.
+    filterStatus.addEventListener("change", filterEvent);
+
+    tombolReset.addEventListener("click", function () {
+      inputCari.value = "";
+      filterStatus.value = "";
+      filterEvent();
+    });
+
+    filterEvent();
+
+    // KONFIRMASI HAPUS EVENT - TETAP DIPERTAHANKAN
+    document.querySelectorAll(".form-hapus-event").forEach(function (form) {
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const yakin = await konfirmasi(
+          //ini mencegah langsung terhapusnya data event
+          "Event ini akan dihapus secara permanen.",
+          "Ya, hapus!",
+        );
+
+        if (yakin) {
+          form.submit();
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}
